@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mybatis.dao.DySelectDao">
+    <!--输出映射ResultMap-->
+    <resultMap id="UserResultMap" type="UserEntity">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="birth" column="birth" jdbcType="DATE"/>
+        <result property="sal" column="sal" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <!--SQL片段-->
+    <sql id="UserColumns">id,username,birth,sal</sql>
+    <!--动态查询-->
+    <select id="dynamicSelect"
+            parameterType="com.company.mybatis.dao.entity.QueryVO"
+            resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="username != null and username != ''">
+                and username like concat('%',#{username},'%')
+            </if>
+            <if test="minSal != null">
+                and sal &gt; #{minSal}
+            </if>
+            <if test="maxSal != null">
+                and sal &lt; #{maxSal}
+            </if>
+        </where>
+    </select>
+</mapper>
+
+
+

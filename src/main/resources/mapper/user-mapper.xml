@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mybatis.dao.UserDao">
+
+    <!--输出映射ResultMap-->
+    <resultMap id="UserResultMap" type="UserEntity">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="birth" column="birth" jdbcType="DATE"/>
+        <result property="sal" column="sal" jdbcType="DECIMAL"/>
+    </resultMap>
+
+    <!--SQL片段-->
+    <sql id="UserColumns">id,username,birth,sal</sql>
+    <!--查询-->
+    <select id="findById" parameterType="integer" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user where id=#{id}
+    </select>
+    <select id="findByPage" parameterType="map" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user limit #{start},#{size}
+    </select>
+
+    <select id="findByPageVO" parameterType="PageVO" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user limit #{start},#{size}
+    </select>
+
+
+    <select id="findByName1" parameterType="map" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user where username like concat('%',#{username},'%')
+    </select>
+
+    <select id="findByName2" parameterType="map" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user where username like '%${username}%'
+    </select>
+
+    <select id="findByMaxSal" parameterType="map" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user where sal &lt; #{maxSal}
+    </select>
+
+    <!--增、删、改-->
+    <insert id="save" parameterType="UserEntity"
+    useGeneratedKeys="true" keyProperty="id">
+      insert into t_user(username,birth,sal) values(#{username},#{birth},#{sal})
+    </insert>
+    <delete id="delete" parameterType="UserEntity">
+      delete from t_user where id = #{id}
+    </delete>
+    <update id="update" parameterType="UserEntity">
+      update t_user
+       <set>
+           <if test="username != null and username != ''">
+               username=#{username},
+           </if>
+           <if test="birth != null and birth != ''">
+               birth=#{birth},
+           </if>
+           <if test="sal != null">
+               sal=#{sal}
+           </if>
+       </set>
+       where id=#{id}
+    </update>
+
+    <update id="raiseSal">
+        update t_user set sal=sal*1.1 where id in
+        <foreach collection="list" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </update>
+</mapper>
+
+
+
