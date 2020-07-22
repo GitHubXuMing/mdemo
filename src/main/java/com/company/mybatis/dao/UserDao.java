@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface UserDao {
     public User findById(Integer id);
-    public List<User> findByPage(@Param("start") Integer start,@Param("size") Integer size);
+    public List<User> findAll();
     public List<User> findByPageVO(PageVO pv);
     public List<User> findByName1(@Param("username") String username);
     public List<User> findByName2(@Param("username") String username);

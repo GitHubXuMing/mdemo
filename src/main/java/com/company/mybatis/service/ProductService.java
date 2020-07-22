@@ -26,4 +26,16 @@ public class ProductService implements IProductService {
         }
         return result;
     }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRES_NEW)
+    public int insertBatchMapper(List<Product> productList) {
+        return productDao.insertBatch(productList);
+    }
+
+    @Override
+    @Transactional(isolation = Isolation.READ_COMMITTED,propagation = Propagation.REQUIRES_NEW)
+    public int deleteBatch(List<Integer> ids) {
+        return productDao.deleteBatch(ids);
+    }
 }

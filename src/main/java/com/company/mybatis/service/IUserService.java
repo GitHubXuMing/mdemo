@@ -2,13 +2,14 @@ package com.company.mybatis.service;
 
 import com.company.mybatis.dao.entity.PageVO;
 import com.company.mybatis.dao.entity.User;
+import com.github.pagehelper.PageInfo;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 public interface IUserService {
     public User findById(Integer id);
-    public List<User> findByPage(Integer start, Integer size);
+    public PageInfo findAll(Integer page, Integer size);
     public List<User> findByPageVO(PageVO pv);
     public List<User> findByName1( String username);
     public List<User> findByName2(String username);

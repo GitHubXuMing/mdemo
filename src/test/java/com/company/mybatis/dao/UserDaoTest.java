@@ -33,8 +33,6 @@ public class UserDaoTest {
     }
     @Test
     public void findByPage() {
-        System.err.println(userDao.findByPage(0,3));
-        System.err.println(userDao.findByPage(2,2));
     }
     @Test
     public void findByName() {
@@ -46,14 +44,14 @@ public class UserDaoTest {
         User user = new User("zhou",new Date(),new BigDecimal("2.3"));
         int result = userDao.save(user);
         System.err.println("save result:"+result);
-        userDao.findByPage(0,10).stream().forEach(System.err::println);
+
     }
     @Test
     public void delete() {
         User user = new User();
         user.setId(6);
         userDao.delete(user);
-        userDao.findByPage(0,10).stream().forEach(System.err::println);
+
     }
     @Test
     public void update() {
@@ -62,7 +60,7 @@ public class UserDaoTest {
        user.setSal(new BigDecimal("8888"));
        user.setUsername("AAAA");
        userDao.update(user);
-       userDao.findByPage(0,10).stream().forEach(System.err::println);
+
     }
 
     @Test

@@ -22,6 +22,12 @@
     delete from product
     where pid = #{pid,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteBatch">
+    delete from product where pid in
+    <foreach collection="list" item="pid" separator="," open="(" close=")" index="idx">
+      #{pid}
+    </foreach>
+  </delete>
   <insert id="insert" parameterType="com.company.mybatis.dao.entity.Product" >
     insert into product ( pname, price,
       pdate)
@@ -58,6 +64,13 @@
         #{pdate,jdbcType=DATE},
       </if>
     </trim>
+  </insert>
+  <insert id="insertBatch">
+    insert into product ( pname, price, pdate)
+    values
+    <foreach collection="list" separator="," item="item">
+      (#{item.pname},#{item.price},now())
+    </foreach>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.company.mybatis.dao.entity.Product" >
     update product

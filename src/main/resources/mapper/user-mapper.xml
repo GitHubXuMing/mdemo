@@ -18,8 +18,8 @@
     <select id="findById" parameterType="integer" resultMap="UserResultMap">
         select <include refid="UserColumns"/> from t_user where id=#{id}
     </select>
-    <select id="findByPage" parameterType="map" resultMap="UserResultMap">
-        select <include refid="UserColumns"/> from t_user limit #{start},#{size}
+    <select id="findAll" resultMap="UserResultMap">
+        select <include refid="UserColumns"/> from t_user
     </select>
 
     <select id="findByPageVO" parameterType="PageVO" resultMap="UserResultMap">

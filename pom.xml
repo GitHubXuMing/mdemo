@@ -20,13 +20,26 @@
         <!-- junit版本号 -->
         <junit.version>4.12</junit.version>
         <!-- mybatis版本号 -->
-        <mybatis.version>3.2.1</mybatis.version>
+        <mybatis.version>3.3.0</mybatis.version>
+        <pagehelper.version>5.1.8</pagehelper.version>
         <!-- mybatis-spring整合jar包的版本号 -->
         <mybatis.spring.version>1.2.0</mybatis.spring.version>
         <!--mysql驱动版本号-->
         <mysql.version>5.1.38</mysql.version>
     </properties>
     <dependencies>
+        <!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.72</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>${pagehelper.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
